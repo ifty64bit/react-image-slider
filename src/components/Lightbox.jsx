@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 
 function Lightbox({ children }) {
-    const [controller, setController] = useState(0);
-    const [width, setWidth] = useState(window.innerWidth);
-    const [translate, setTranslate] = useState(0);
-    const [isClicked, setIsClicked] = useState(false);
+    const [controller, setController] = useState(0);    //This will use as image index referance
+    const [width, setWidth] = useState(window.innerWidth);  //store current width of window
+    const [translate, setTranslate] = useState(0);  //TranslateX value
+    const [isClicked, setIsClicked] = useState(false); 
     const wrapper = useRef();
 
     const imageLength = children.length;
@@ -35,6 +35,7 @@ function Lightbox({ children }) {
     const handelMouseUp = (e) => {
         e.target.style.cursor = "pointer";
         setIsClicked(false);
+        setController(Math.round(Math.abs(translate / width)) % imageLength);
     };
 
     const handelMouseLeave = (e) => {
